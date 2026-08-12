@@ -1,6 +1,6 @@
 import {
-  expect,
   test as base,
+  expect,
   type Request,
   type Response,
 } from '@playwright/test';
@@ -27,6 +27,15 @@ type ApiCall = {
 
 type TrackedApiCall = ApiCall & {
   startedAtMs: number;
+};
+
+type PageMilestone = {
+  elapsedMs: number;
+  recordedAt: string;
+};
+
+export type PageMilestones = {
+  mark: (name: string) => void;
 };
 
 function getApiUrl(request: Request) {
@@ -155,7 +164,10 @@ function createPerformanceTable(
 </html>`;
 }
 
-export const test = base.extend<{ apiPerformance: void }>({
+export const test = base.extend<{
+  apiPerformance: void;
+  pageMilestones: PageMilestones;
+}>({
   apiPerformance: [
     async ({ context }, use, testInfo) => {
       const calls = new Map<Request, TrackedApiCall>();
@@ -236,6 +248,30 @@ export const test = base.extend<{ apiPerformance: void }>({
     },
     { auto: true },
   ],
+  pageMilestones: [
+    async ({ page }, use, testInfo) => {
+      const startedAtMs = performance.now();
+      const milestones: Record<string, PageMilestone> = {};
+
+      await use({
+        mark: (name: string) => {
+          milestones[name] = {
+            elapsedMs: Math.round(performance.now() - startedAtMs),
+            recordedAt: new Date().toISOString(),
+          };
+        },
+      });
+
+      await testInfo.attach('page-milestones.json', {
+        body: Buffer.from(
+          JSON.stringify({ milestones }, null, 2),
+        ),
+        contentType: 'application/json',
+      });
+    },
+    { auto: true },
+  ],
 });
 
 export { expect };
+

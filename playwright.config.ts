@@ -1,86 +1,26 @@
 import { defineConfig, devices } from '@playwright/test';
-import dotenv from 'dotenv';
-import path from 'path';
-import { ICAVE_STORAGE_STATE_PATH } from './tests/icave';
+import fs from 'node:fs';
+import path from 'node:path';
 
-dotenv.config({ path: path.resolve(__dirname, '.env'), quiet: true });
+const storageStatePath = path.join('playwright', '.auth', 'user.json');
 
-const browserProjects = {
-  chromium: {
-    name: 'chromium',
-    use: { ...devices['Desktop Chrome'] },
-  },
-  firefox: {
-    name: 'firefox',
-    use: { ...devices['Desktop Firefox'] },
-  },
-  webkit: {
-    name: 'webkit',
-    use: { ...devices['Desktop Safari'] },
-  },
-};
-
-function isSupportedBrowser(
-  browserName: string,
-): browserName is keyof typeof browserProjects {
-  return Object.prototype.hasOwnProperty.call(browserProjects, browserName);
-}
-
-const selectedBrowserNames = [
-  ...new Set(
-    (process.env.PLAYWRIGHT_BROWSERS ?? 'chromium')
-      .split(',')
-      .map((browserName) => browserName.trim().toLowerCase())
-      .filter(Boolean),
-  ),
-];
-
-if (selectedBrowserNames.length === 0) {
-  throw new Error('PLAYWRIGHT_BROWSERS must include at least one browser.');
-}
-
-const projects = selectedBrowserNames.map((browserName) => {
-  if (!isSupportedBrowser(browserName)) {
-    throw new Error(
-      `Unsupported browser "${browserName}". Use chromium, firefox, or webkit.`,
-    );
-  }
-
-  return browserProjects[browserName];
-});
-
-/**
- * See https://playwright.dev/docs/test-configuration.
- */
 export default defineConfig({
-  testDir: './tests',
-  globalSetup: './tests/auth.setup.ts',
-  /* Run tests in files in parallel */
-  fullyParallel: true,
-  /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-  use: {
-    storageState: ICAVE_STORAGE_STATE_PATH,
-    /* Base URL to use in actions like `await page.goto('')`. */
-    // baseURL: 'http://localhost:3000',
-
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
-  },
-
-  projects,
-
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://localhost:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
+	testDir: './tests',
+	timeout: 60_000,
+	expect: {
+		timeout: 15_000,
+	},
+	fullyParallel: false,
+	forbidOnly: !!process.env.CI,
+	retries: process.env.CI ? 2 : 0,
+	reporter: [['list'], ['html', { outputFolder: 'playwright-report', open: 'never' }]],
+	use: {
+		baseURL: process.env.SPA_URL ?? 'https://icave.veronica.iut.hphit.hutchisonports.com/',
+		browserName: 'chromium',
+		...devices['Desktop Chrome'],
+		...(fs.existsSync(storageStatePath) ? { storageState: storageStatePath } : {}),
+		trace: 'on',
+		video: 'retain-on-failure',
+	},
+	outputDir: 'test-results',
 });

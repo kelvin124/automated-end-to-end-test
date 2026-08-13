@@ -54,6 +54,9 @@ For every generated scenario script, you must guarantee code instrumentation tha
    3. End Time: ISO standard timestamp capturing when the scenario reaches completion or terminal state.
    4. Duration: The precise physical computation of total run length (End Time - Start Time).
 
+## Mandatory Trace Capture
+Every Playwright scenario must run with tracing enabled for the complete test lifecycle. Configure the test runner with `trace: 'on'` so a trace artifact is produced for successful and failed runs and can be inspected to verify exactly what was tested.
+
 ------------------------------
 ## Expected Code Output Format
 When generating scripts, ensure you yield self-contained, strongly typed TypeScript Playwright configurations using page-object patterns where applicable, embedding detailed annotations detailing steps, API interception event attachments, and final evaluation blocks.

@@ -4,7 +4,7 @@
 | navigation/open-voyage.md | Implemented |
 | shared/loader-disappear.md | Implemented |
 | navigation/open-create-mask.md | Not Implemented |
-| navigation/open-plan-preview.md | Not Implemented |
+| navigation/open-plan-preview.md | Implemented |
 | views/create-mask/load-create-mask-view-table-data.md | Not Implemented |
 | views/create-mask/open-loading-container-list.md | Not Implemented |
 | views/plan-preview/enable-auto-update.md | Not Implemented |

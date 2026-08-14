@@ -1,14 +1,85 @@
-import { expect, type Page } from '@playwright/test';
+import { expect, type Locator, type Page } from '@playwright/test';
+import { ScenarioObservability } from './scenario-observability';
 
-export class NavigationMenu {
-  public constructor(private readonly page: Page) {}
+const voyageSearchValue = 'test-voyage';
 
-  public async open(): Promise<void> {
-    await this.page.locator('#NavigationMenu').locator('#idIcon').click();
-  }
+export function byTestId(page: Page, testId: string): Locator {
+	return page.locator(`[data-test-id="${testId}"]`);
+}
 
-  public async openVesselPlanning(): Promise<void> {
-    await this.page.getByText('Vessel Plan', { exact: true }).click();
-    await expect(this.page.getByText('Quick Search', { exact: true })).toBeVisible();
-  }
+export class VesselPlanningNavigation {
+	public constructor(
+		private readonly page: Page,
+		private readonly scenario: ScenarioObservability,
+	) {}
+
+	public async openSpa(): Promise<void> {
+		await this.page.goto('/');
+
+		const navigationMenu = this.page.locator('#NavigationMenu');
+		await this.scenario.assertThat(
+			'The NavigationMenu control is visible',
+			() => expect(navigationMenu).toBeVisible(),
+		);
+		await navigationMenu.click();
+
+		const navigationIcon = this.page.locator('#idIcon');
+		await this.scenario.assertThat(
+			'The navigation icon is visible after opening NavigationMenu',
+			() => expect(navigationIcon).toBeVisible(),
+		);
+		await navigationIcon.click();
+
+		const vesselPlanLink = this.page.getByText('Vessel Plan', { exact: true });
+		await this.scenario.assertThat(
+			'The Vessel Plan navigation link is visible',
+			() => expect(vesselPlanLink).toBeVisible(),
+		);
+		await vesselPlanLink.click();
+
+		await this.scenario.assertThat(
+			'Quick search is visible on the Vessel Planning dashboard',
+			() => expect(this.page.getByText(/quick\s*search/i)).toBeVisible(),
+		);
+	}
+
+	public async openVoyage(): Promise<void> {
+		await this.openSpa();
+
+		const quickSearchInput = byTestId(this.page, 'vp-voyage-table-quick-search-input');
+		await this.scenario.assertThat(
+			'The voyage quick-search input is visible',
+			() => expect(quickSearchInput).toBeVisible(),
+		);
+		await quickSearchInput.fill(voyageSearchValue);
+		await this.scenario.assertThat(
+			'The voyage quick-search input contains test-voyage',
+			() => expect(quickSearchInput).toHaveValue(voyageSearchValue),
+		);
+		await quickSearchInput.press('Enter');
+
+		await this.scenario.assertThat(
+			'Existing Plans is visible after submitting the voyage search',
+			() => expect(this.page.getByText('Existing Plans', { exact: true })).toBeVisible(),
+		);
+	}
+
+	public async openPlanPreview(): Promise<void> {
+		await this.openVoyage();
+
+		await this.scenario.assertThat(
+			'The Create Mask control is visible in the plan-preview view',
+			() => expect(byTestId(this.page, 'vp-plan-preview-create-mask-btn')).toBeVisible(),
+		);
+	}
+
+	public async openCreateMask(): Promise<void> {
+		await this.openPlanPreview();
+		await byTestId(this.page, 'vp-plan-preview-create-mask-btn').click();
+
+		await this.scenario.assertThat(
+			'The create-mask voyage summary information is visible',
+			() => expect(byTestId(this.page, 'vp-create-mask-voyage-summary-info')).toBeVisible(),
+		);
+	}
 }

@@ -1,6 +1,6 @@
 | Markdown File Name | Status |
 | --- | --- |
-| navigation/open-spa.md | Not Implemented |
+| navigation/open-spa.md | Implemented |
 | navigation/open-voyage.md | Not Implemented |
 | shared/loader-disappear.md | Not Implemented |
 | navigation/open-create-mask.md | Not Implemented |

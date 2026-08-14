@@ -1,11 +1,11 @@
 import { defineConfig, devices } from '@playwright/test';
-import fs from 'node:fs';
 import path from 'node:path';
 
 const storageStatePath = path.join('playwright', '.auth', 'user.json');
 
 export default defineConfig({
 	testDir: './tests',
+	globalSetup: './tests/support/authentication.ts',
 	timeout: 60_000,
 	expect: {
 		timeout: 15_000,
@@ -18,7 +18,7 @@ export default defineConfig({
 		baseURL: process.env.SPA_URL ?? 'https://icave.veronica.iut.hphit.hutchisonports.com/',
 		browserName: 'chromium',
 		...devices['Desktop Chrome'],
-		...(fs.existsSync(storageStatePath) ? { storageState: storageStatePath } : {}),
+		storageState: storageStatePath,
 		trace: 'on',
 		video: 'retain-on-failure',
 	},

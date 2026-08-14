@@ -9,7 +9,7 @@
 
 ## Element Identification
 
-* When a scenario needs to locate an element by ID, use its `data-test-id` attribute.
+* Use an element's `data-test-id` attribute by default. Use its HTML `id` only when a scenario explicitly specifies that locator.
 * When the `data-test-id` value is unknown, use a descriptive placeholder until the actual value is available.
 
 ## Reusable Navigation

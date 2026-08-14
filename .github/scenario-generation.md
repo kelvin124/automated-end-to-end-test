@@ -7,6 +7,11 @@
 * Make execution readable by documenting and outputting chronological steps in comments or test steps.
 * Measure the elapsed time for every assertion independently and include it in the client-side assertion timing report.
 
+## Element Identification
+
+* When a scenario needs to locate an element by ID, use its `data-test-id` attribute.
+* When the `data-test-id` value is unknown, use a descriptive placeholder until the actual value is available.
+
 ## Reusable Navigation
 
 * Do not hardcode or repeat view transitions, sidebar interactions, URL routing, or navigation menus in scenario files.

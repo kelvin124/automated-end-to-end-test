@@ -10,3 +10,7 @@
 - Dynamic Parameters: This file should handle environment-specific options such as:
    - The URL of the SPA (Single Page Application).
    - What browser should be used for the current test run.
+
+3. Scenario Lifecycle Management
+* Centralized Tracking: Execute and maintain all test scripts strictly inside the designated /scenarios directory.
+* Progress Observability: Maintain a standardized progress.md file at the root of the test directory to track implementation status, test coverage, and pending features for all user scenarios.   

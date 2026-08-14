@@ -13,4 +13,11 @@
 
 3. Scenario Lifecycle Management
 * Centralized Tracking: Execute and maintain all test scripts strictly inside the designated /scenarios directory.
-* Progress Observability: Maintain a standardized progress.md file at the root of the test directory to track implementation status, test coverage, and pending features for all user scenarios.   
+* Progress Observability: Keep `progress.md` at the root of the `/scenarios` directory. Its only purpose is to track which scenario Markdown files have been implemented.
+* Progress Format: Use a table with exactly two columns: `Markdown File Name` and `Status`.
+
+  ```md
+  | Markdown File Name | Status |
+  | --- | --- |
+  | navigation/open-spa.md | Implemented |
+  ```

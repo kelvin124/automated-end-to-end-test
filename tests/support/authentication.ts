@@ -55,7 +55,7 @@ async function storedSessionIsValid(baseURL: string): Promise<boolean> {
 		try {
 			const page = await context.newPage();
 			await page.goto(baseURL, { waitUntil: 'domcontentloaded' });
-			return hasAuthenticatedShell(page);
+			return await hasAuthenticatedShell(page);
 		} finally {
 			await context.close();
 		}

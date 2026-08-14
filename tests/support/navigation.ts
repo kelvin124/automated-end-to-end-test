@@ -1,7 +1,7 @@
 import { expect, type Locator, type Page } from '@playwright/test';
 import { ScenarioObservability } from './scenario-observability';
 
-const voyageSearchValue = 'test-voyage';
+const voyageSearchValue = 'KELV/KCVSL/KCVOY1';
 
 export function byTestId(page: Page, testId: string): Locator {
 	return page.locator(`[data-test-id="${testId}"]`);
@@ -21,9 +21,8 @@ export class VesselPlanningNavigation {
 			'The NavigationMenu control is visible',
 			() => expect(navigationMenu).toBeVisible(),
 		);
-		await navigationMenu.click();
 
-		const navigationIcon = this.page.locator('#idIcon');
+		const navigationIcon = navigationMenu.locator('#idIcon');
 		await this.scenario.assertThat(
 			'The navigation icon is visible after opening NavigationMenu',
 			() => expect(navigationIcon).toBeVisible(),
@@ -53,13 +52,23 @@ export class VesselPlanningNavigation {
 		);
 		await quickSearchInput.fill(voyageSearchValue);
 		await this.scenario.assertThat(
-			'The voyage quick-search input contains test-voyage',
+			'The voyage quick-search input contains KELV/KCVSL/KCVOY1',
 			() => expect(quickSearchInput).toHaveValue(voyageSearchValue),
 		);
 		await quickSearchInput.press('Enter');
 
+		const matchingVoyageRow = this.page
+			.locator('.ag-center-cols-container .ag-row')
+			.filter({ hasText: voyageSearchValue });
 		await this.scenario.assertThat(
-			'Existing Plans is visible after submitting the voyage search',
+			'The matching voyage row is visible after submitting the search',
+			() => expect(matchingVoyageRow).toBeVisible(),
+		);
+		// AG Grid replaces the selected row between the two click events.
+		await matchingVoyageRow.dblclick({ force: true, noWaitAfter: true });
+
+		await this.scenario.assertThat(
+			'Existing Plans is visible after opening the matching voyage',
 			() => expect(this.page.getByText('Existing Plans', { exact: true })).toBeVisible(),
 		);
 	}

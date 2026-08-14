@@ -9,11 +9,16 @@ test('Load voyage data in the voyage table', async ({ page }, testInfo) => {
 		testInfo,
 		'Load voyage data in the voyage table',
 	);
-	const voyageRowCount = byTestId(page, 'my-test-id-voyage-row-count');
+	const voyageRowCount = page.locator('.ag-status-bar-left[role="status"]').first();
 
 	try {
+		const rowCountLoading = assertRowCountStartsAtZeroAndLoads(
+			scenario,
+			voyageRowCount,
+			'The voyage table row count',
+		);
 		await new VesselPlanningNavigation(page, scenario).openSpa();
-		await assertRowCountStartsAtZeroAndLoads(scenario, voyageRowCount, 'The voyage table row count');
+		await rowCountLoading;
 	} finally {
 		await scenario.finish();
 	}

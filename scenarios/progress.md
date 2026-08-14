@@ -2,7 +2,7 @@
 | --- | --- |
 | navigation/open-spa.md | Implemented |
 | navigation/open-voyage.md | Implemented |
-| shared/loader-disappear.md | Not Implemented |
+| shared/loader-disappear.md | Implemented |
 | navigation/open-create-mask.md | Not Implemented |
 | navigation/open-plan-preview.md | Not Implemented |
 | views/create-mask/load-create-mask-view-table-data.md | Not Implemented |

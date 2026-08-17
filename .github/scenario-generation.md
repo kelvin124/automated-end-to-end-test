@@ -9,8 +9,8 @@
 
 ## Element Identification
 
-* Use an element's `data-test-id` attribute by default. Use its HTML `id` only when a scenario explicitly specifies that locator.
-* When the `data-test-id` value is unknown, use a descriptive placeholder until the actual value is available.
+* Use an element's `data-testid` attribute by default. Use its HTML `id` only when a scenario explicitly specifies that locator.
+* When the `data-testid` value is unknown, use a descriptive placeholder until the actual value is available.
 
 ## Reusable Navigation
 

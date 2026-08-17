@@ -4,7 +4,7 @@ import { ScenarioObservability } from './scenario-observability';
 const voyageSearchValue = 'KELV/KCVSL/KCVOY1';
 
 export function byTestId(page: Page, testId: string): Locator {
-	return page.locator(`[data-test-id="${testId}"]`);
+	return page.locator(`[data-testid="${testId}"]`);
 }
 
 export class VesselPlanningNavigation {

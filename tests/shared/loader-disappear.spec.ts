@@ -13,7 +13,7 @@ test('Wait for the SPA loader to disappear', async ({ page }, testInfo) => {
 		await new VesselPlanningNavigation(page, scenario).openSpa();
 		await scenario.assertThat(
 			'The SPA loader is hidden or removed after the SPA opens',
-			() => expect(byTestId(page, 'vp-loader')).toBeHidden(),
+			() => expect(byTestId(page, 'vp-shared-loader')).toBeHidden(),
 		);
 	} finally {
 		await scenario.finish();

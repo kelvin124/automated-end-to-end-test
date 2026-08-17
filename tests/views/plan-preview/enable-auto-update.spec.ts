@@ -69,7 +69,7 @@ test('Enable Auto Update for an existing plan', async ({ page }, testInfo) => {
 		);
 		await scenario.assertThat(
 			'The Auto Update loader is hidden or removed after the operation',
-			() => expect(byTestId(page, 'vp-loader')).toBeHidden(),
+			() => expect(byTestId(page, 'vp-shared-loader')).toBeHidden(),
 		);
 		await scenario.assertThat(
 			'The Auto Update success message is visible',

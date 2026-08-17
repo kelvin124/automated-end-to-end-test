@@ -17,7 +17,7 @@ test('Load table data in the create-mask view', async ({ page }, testInfo) => {
 		);
 		await scenario.assertThat(
 			'The create-mask loader is hidden or removed after table data loads',
-			() => expect(byTestId(page, 'vp-loader')).toBeHidden(),
+			() => expect(byTestId(page, 'vp-shared-loader')).toBeHidden(),
 		);
 	} finally {
 		await scenario.finish();

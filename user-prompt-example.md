@@ -4,8 +4,9 @@
 
 # Scenario: Open loading container list in create mask view
 
-# View
-1. create-mask
+# Type
+1. Type: View / Navigation / shared
+2. create-mask
 
 # Description: 
 1. open crate-mask view

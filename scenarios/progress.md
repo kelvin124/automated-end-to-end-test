@@ -1,10 +1,23 @@
+## Navigation
+
 | Markdown File Name | Status |
 | --- | --- |
 | navigation/open-spa.md | Implemented |
 | navigation/open-voyage.md | Implemented |
-| shared/loader-disappear.md | Implemented |
 | navigation/open-create-mask.md | Implemented |
+| navigation/open-cwp-plan.md | Not Implemented |
 | navigation/open-plan-preview.md | Implemented |
+
+## Shared
+
+| Markdown File Name | Status |
+| --- | --- |
+| shared/loader-disappear.md | Implemented |
+
+## Views
+
+| Markdown File Name | Status |
+| --- | --- |
 | views/create-mask/load-create-mask-view-table-data.md | Implemented |
 | views/create-mask/open-loading-container-list.md | Implemented |
 | views/plan-preview/enable-auto-update.md | Implemented |

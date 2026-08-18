@@ -45,7 +45,7 @@ export class VesselPlanningNavigation {
 	public async openVoyage(): Promise<void> {
 		await this.openSpa();
 
-		const quickSearchInput = byTestId(this.page, 'vp-voyage-table-quick-search-input');
+		const quickSearchInput = byTestId(this.page, 'vp-view-voyage-table-quick-search-input');
 		await this.scenario.assertThat(
 			'The voyage quick-search input is visible',
 			() => expect(quickSearchInput).toBeVisible(),
@@ -78,17 +78,17 @@ export class VesselPlanningNavigation {
 
 		await this.scenario.assertThat(
 			'The Create Mask control is visible in the plan-preview view',
-			() => expect(byTestId(this.page, 'vp-plan-preview-create-mask-btn')).toBeVisible(),
+			() => expect(byTestId(this.page, 'vp-view-plan-preview-create-mask-btn')).toBeVisible(),
 		);
 	}
 
 	public async openCreateMask(): Promise<void> {
 		await this.openPlanPreview();
-		await byTestId(this.page, 'vp-plan-preview-create-mask-btn').click();
+		await byTestId(this.page, 'vp-view-plan-preview-create-mask-btn').click();
 
 		await this.scenario.assertThat(
-			'The create-mask voyage summary information is visible',
-			() => expect(byTestId(this.page, 'vp-create-mask-voyage-summary-info')).toBeVisible(),
+			'The Mask Order section is visible in the create-mask view',
+			() => expect(this.page.getByText('MASK ORDER', { exact: true })).toBeVisible(),
 		);
 	}
 }

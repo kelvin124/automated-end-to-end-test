@@ -13,7 +13,7 @@ test('Load table data in the create-mask view', async ({ page }, testInfo) => {
 		await new VesselPlanningNavigation(page, scenario).openCreateMask();
 		await scenario.assertThat(
 			'The create-mask table is visible',
-			() => expect(byTestId(page, 'vp-create-mask-table')).toBeVisible(),
+			() => expect(byTestId(page, 'vp-view-create-mask-table')).toBeVisible(),
 		);
 		await scenario.assertThat(
 			'The create-mask loader is hidden or removed after table data loads',

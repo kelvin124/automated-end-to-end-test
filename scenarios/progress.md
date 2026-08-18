@@ -18,6 +18,7 @@
 
 | Markdown File Name | Status |
 | --- | --- |
+| views/cwp-plan/verify-cwp-plan-summary.md | Not Implemented |
 | views/create-mask/load-create-mask-view-table-data.md | Implemented |
 | views/create-mask/open-loading-container-list.md | Implemented |
 | views/plan-preview/enable-auto-update.md | Implemented |

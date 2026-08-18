@@ -24,13 +24,13 @@ test('Enable Auto Update for an existing plan', async ({ page }, testInfo) => {
 		testInfo,
 		'Enable Auto Update for an existing plan',
 	);
-	const voyageSummary = byTestId(page, 'vp-plan-preview-voyage-summary-info');
-	const firstExistingPlan = byTestId(page, 'vp-plan-preview-existing-plan-1');
+	const voyageSummary = byTestId(page, 'vp-view-plan-preview-voyage-summary-info');
+	const firstExistingPlan = byTestId(page, 'vp-view-plan-preview-existing-plan-1');
 	const autoUpdateControl = firstExistingPlan.locator(
-		'div[data-testid="vp-plan-preview-auto-update-btn"]',
+		'div[data-testid="vp-view-plan-preview-auto-update-btn"]',
 	);
 	const stopAutoUpdateControl = firstExistingPlan.locator(
-		'div[data-testid="vp-plan-preview-stop-auto-update-btn"]',
+		'div[data-testid="vp-view-plan-preview-stop-auto-update-btn"]',
 	);
 	const autoUpdateSuccessMessage = page.getByText(/Auto calculate move time successfully\./);
 	let autoUpdateEnabled = false;

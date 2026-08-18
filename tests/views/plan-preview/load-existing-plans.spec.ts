@@ -24,7 +24,7 @@ test('Load existing plans in the plan-preview view', async ({ page }, testInfo) 
 		testInfo,
 		'Load existing plans in the plan-preview view',
 	);
-	const voyageSummary = byTestId(page, 'vp-plan-preview-voyage-summary-info');
+	const voyageSummary = byTestId(page, 'vp-view-plan-preview-voyage-summary-info');
 
 	try {
 		await new VesselPlanningNavigation(page, scenario).openPlanPreview();
@@ -45,7 +45,7 @@ test('Load existing plans in the plan-preview view', async ({ page }, testInfo) 
 		);
 		await scenario.assertThat(
 			'The first existing plan is visible',
-			() => expect(byTestId(page, 'vp-plan-preview-existing-plan-1')).toBeVisible(),
+			() => expect(byTestId(page, 'vp-view-plan-preview-existing-plan-1')).toBeVisible(),
 		);
 	} finally {
 		await scenario.finish();

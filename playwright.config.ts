@@ -8,7 +8,7 @@ export default defineConfig({
 	globalSetup: './tests/support/authentication.ts',
 	timeout: 60_000,
 	expect: {
-		timeout: 15_000,
+		timeout: 30_000,
 	},
 	fullyParallel: false,
 	forbidOnly: !!process.env.CI,

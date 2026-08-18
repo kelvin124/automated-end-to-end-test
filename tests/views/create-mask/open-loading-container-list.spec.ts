@@ -9,12 +9,12 @@ test('Open and load the create-mask loading container list', async ({ page }, te
 		testInfo,
 		'Open and load the create-mask loading container list',
 	);
-	const loadingContainerList = byTestId(page, 'vp-create-mask-loading-cntr-list');
+	const loadingContainerList = byTestId(page, 'vp-view-create-mask-loading-cntr-list');
 	const loadingContainerListControl = page.locator(
-		'div[data-testid="vp-create-mask-all-ld-cntr-btn"]',
+		'div[data-testid="vp-view-create-mask-all-ld-cntr-btn"]',
 	);
 	const loadingContainerRowCountSelector =
-		'[data-testid="vp-create-mask-loading-cntr-list"] .ag-status-bar-left[role="status"]';
+		'[data-testid="vp-view-create-mask-loading-cntr-list"] .ag-status-bar-left[role="status"]';
 	const loadingContainerRowCount = loadingContainerList.locator('.ag-status-bar-left[role="status"]');
 
 	try {
